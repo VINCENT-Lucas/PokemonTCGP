@@ -8,11 +8,11 @@ Here is the main functionalities that has been released for now.
 The probabilites of getting a new card is displayed for each pack, according to the cards that you own.
 You can enter the cards you own by pressing the **Enter cards** button.
 
-![Cards galery](assets/galery_before_clicking.png)
+![Cards galery](assets/galery_before_click.png)
 
 There are all the cards that are currently in game, in colors if owned, in grey if not.
 
-![Cards galery](assets/galery_after_clicking.png)
+![Cards galery](assets/galery_after_click.png)
 
 By pressing a card, you can add it or remove it from your collection.
 
