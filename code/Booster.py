@@ -3,7 +3,7 @@ class Booster:
         self.name = name
         self.list_cards = []
         self.proba_cards = {}
-    
+
     def set_probas(self, probas_dic):
         self.proba_cards = probas_dic
     
