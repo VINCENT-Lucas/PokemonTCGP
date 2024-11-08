@@ -67,7 +67,7 @@ def calculer_dimensions_fenetre():
 def creer_interface():
     window_width, window_height = calculer_dimensions_fenetre()
     root = Tk()
-    root.title("Galerie de Cartes Pokémon")
+    root.title("Pokemon cards galery")
     root.geometry(f"{window_width}x{window_height}")
     
     canvas = Canvas(root, width=window_width - scrollbar_width, height=window_height)

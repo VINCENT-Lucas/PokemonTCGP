@@ -26,7 +26,7 @@ def main_loop():
     
     # Create and set up the main interface window
     root = Tk()
-    root.title("Galerie de Boosters")
+    root.title("Boosters galery")
 
     probas_debloquer = get_new_card_probabilities(owned)
     Nb_cartes_debloquees = len(owned)
@@ -58,7 +58,7 @@ def main_loop():
         pourcentage_label.pack()
 
     # Display the number of unlocked cards
-    cartes_label = Label(root, text=f"Cartes débloquées : {Nb_cartes_debloquees} / {Nb_cartes_Totales}")
+    cartes_label = Label(root, text=f"Unlocked cards : {Nb_cartes_debloquees} / {Nb_cartes_Totales}")
     cartes_label.pack(pady=10)
 
     # Function for "Entrer des cartes" button
@@ -69,11 +69,11 @@ def main_loop():
         main_loop()  # Restart the main interface after updating cards
 
     # Button to enter cards
-    entrer_btn = Button(root, text="Entrer des cartes", command=entrer_cartes)
+    entrer_btn = Button(root, text="Enter cards", command=entrer_cartes)
     entrer_btn.pack(pady=5)
 
     # Quit button to exit the loop
-    quitter_btn = Button(root, text="Quitter", command=root.destroy)
+    quitter_btn = Button(root, text="Quit", command=root.destroy)
     quitter_btn.pack(pady=5)
 
     # Run the main interface loop
