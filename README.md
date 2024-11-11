@@ -17,4 +17,4 @@ There are all the cards that are currently in game, in colors if owned, in grey 
 By pressing a card, you can add it or remove it from your collection.
 
 Used languages: Python
-Librairies: os, Tkinter, PIL, json, pandas, io, bs4, re
+Librairies: os, Tkinter, PIL, json, pandas, io, bs4, re, sys

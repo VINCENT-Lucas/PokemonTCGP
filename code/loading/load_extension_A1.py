@@ -1,12 +1,10 @@
 # -------------------------------------------------------------------------------- NOTEBOOK-CELL: CODE
 import pandas as pd, numpy as np
-import requests
 from PIL import Image
 from io import BytesIO
-import os
-import requests
 from bs4 import BeautifulSoup
-import json
+import os, requests, json
+
 
 
 # ------------------ Fonctions d'extraction individuelles -------------------------
