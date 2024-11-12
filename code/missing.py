@@ -2,12 +2,12 @@ import os, json
 from reading.read import *
 
 
-def get_new_card_probabilities(owned=None):
-    with open('Extensions/A1/cards_data.json', 'r', encoding='utf-8') as f:
+def get_new_card_probabilities(path, owned=None):
+    with open(path + r'\Extensions\A1\cards_data.json', 'r', encoding='utf-8') as f:
             all_cards_data = json.load(f)
 
     if owned is None:
-        owned = read_rows('user/owned.txt')
+        owned = read_rows(path +r'\user\owned.txt')
 
     missing_cards = []
     for card in all_cards_data:
@@ -18,7 +18,7 @@ def get_new_card_probabilities(owned=None):
     boosters_list = ["Pikachu", "Charizard", "Mewtwo"]
     stats = {}
     for booster_name in boosters_list:
-        with open(f'Extensions/A1/Boosters/{booster_name}.json', 'r', encoding='utf-8') as f:
+        with open(path + f'\\Extensions\\A1\\Boosters\\{booster_name}.json', 'r', encoding='utf-8') as f:
             booster_probabilities = json.load(f)
         
         sum_probas = 0

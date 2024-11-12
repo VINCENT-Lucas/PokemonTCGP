@@ -4,15 +4,14 @@ from PIL import Image, ImageTk
 from owned_cards import display
 from reading.read import read_rows, write_rows
 from missing import get_new_card_probabilities
+from tools import *
 
-# Read owned cards and initialize variables
-owned = read_rows('user/owned.txt')
-write_rows('user/owned.txt', owned)
+path = get_path()
 
-Nb_cartes_Totales = 287    
+Nb_cartes_Totales = 287
 
-# Image folder for boosters
-image_folder = "./Extensions/A1/Boosters"
+owned = read_rows(path + r'\user\owned.txt')
+image_folder = path + r"\Extensions\A1\Boosters"
 
 # Load and resize booster images
 def charger_image_booster(nom_image):
@@ -28,7 +27,7 @@ def main_loop():
     root = Tk()
     root.title("Boosters galery")
 
-    probas_debloquer = get_new_card_probabilities(owned)
+    probas_debloquer = get_new_card_probabilities(path, owned)
     Nb_cartes_debloquees = len(owned)
 
     # Frame for booster images and percentages
@@ -81,3 +80,4 @@ def main_loop():
 
 # Start the main loop
 main_loop()
+write_rows(path  +r'\user\owned.txt', owned)

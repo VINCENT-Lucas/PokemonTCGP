@@ -1,0 +1,400 @@
+[
+    {
+        "Name": "Potion",
+        "Id": 1,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "5ban Graphics",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "X Speed",
+        "Id": 2,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "Toyste Beach",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Hand Scope",
+        "Id": 3,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "Toyste Beach",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Pokédex",
+        "Id": 4,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "Ryo Ueda",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Poké Ball",
+        "Id": 5,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "Ryo Ueda",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Red Card",
+        "Id": 6,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "5ban Graphics",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Professor's Research",
+        "Id": 7,
+        "Rarity": "Shop",
+        "Type": "None",
+        "HP": "None",
+        "Attacks": [],
+        "Weakness": "None",
+        "Retreat": "None",
+        "Rule": "None",
+        "Illustrator": "Naoki Saito",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Pikachu",
+        "Id": 9,
+        "Rarity": "Shop",
+        "Type": "Lightning",
+        "HP": "60 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "L Gnaw 20",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Fighting",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Atsushi Furusawa",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Mewtwo",
+        "Id": 10,
+        "Rarity": "Missions",
+        "Type": "Psychic",
+        "HP": "120 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "PPCC Power Blast 120",
+                "effect": "Discard 2 [P] Energy from this Pokémon."
+            }
+        ],
+        "Weakness": "Weakness: Darkness",
+        "Retreat": "Retreat: 2",
+        "Rule": "None",
+        "Illustrator": "Krgc",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Chansey",
+        "Id": 11,
+        "Rarity": "Wonder Pick",
+        "Type": "Colorless",
+        "HP": "120 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "CCC Gentle Slap 60",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Fighting",
+        "Retreat": "Retreat: 3",
+        "Rule": "None",
+        "Illustrator": "sowsow",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Meowth",
+        "Id": 12,
+        "Rarity": "Wonder Pick",
+        "Type": "Colorless",
+        "HP": "60 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "C Pay Day 10",
+                "effect": "Draw 1 card."
+            }
+        ],
+        "Weakness": "Weakness: Fighting",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Shigenori Negishi",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Butterfree",
+        "Id": 13,
+        "Rarity": "Promo pack",
+        "Type": "Grass",
+        "HP": "120 HP",
+        "Attacks": [
+            {
+                "symbol": "GC",
+                "info": "C Gust 60",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Fire",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "miki kudo",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Lapras ex",
+        "Id": 14,
+        "Rarity": "None",
+        "Type": "Water",
+        "HP": "140 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "WWC Bubble Drain 80",
+                "effect": "Heal 20 damage from this Pokémon."
+            }
+        ],
+        "Weakness": "Weakness: Lightning",
+        "Retreat": "Retreat: 3",
+        "Rule": "ex rule: When your Pokémon ex is Knocked Out, your opponent gets 2 points.",
+        "Illustrator": "PLANETA CG Works",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Pikachu",
+        "Id": 15,
+        "Rarity": "Promo pack",
+        "Type": "Lightning",
+        "HP": "60 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "L Gnaw 20",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Fighting",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Kouki Saitou",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Clefairy",
+        "Id": 16,
+        "Rarity": "Promo pack",
+        "Type": "Psychic",
+        "HP": "60 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "P Slap 20",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Metal",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Shibuzoh.",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Mankey",
+        "Id": 17,
+        "Rarity": "Promo pack",
+        "Type": "Fighting",
+        "HP": "60 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "F Reckless Charge 30",
+                "effect": "This Pokémon also does 10 damage to itself."
+            }
+        ],
+        "Weakness": "Weakness: Psychic",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Souichirou Gunjima",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Venusaur",
+        "Id": 18,
+        "Rarity": "Promo pack",
+        "Type": "Grass",
+        "HP": "160 HP",
+        "Attacks": [
+            {
+                "symbol": "GC",
+                "info": "GC Mega Drain 80",
+                "effect": "Heal 30 damage from this Pokémon."
+            }
+        ],
+        "Weakness": "Weakness: Fire",
+        "Retreat": "Retreat: 3",
+        "Rule": "None",
+        "Illustrator": "Kuroimori",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Greninja",
+        "Id": 19,
+        "Rarity": "Promo pack",
+        "Type": "Water",
+        "HP": "120 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "WC Mist Slash 60",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Lightning",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Sanosuke Sakuma",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Haunter",
+        "Id": 20,
+        "Rarity": "Promo pack",
+        "Type": "Psychic",
+        "HP": "70 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "P Surprise Attack 50",
+                "effect": "Flip a coin. If tails, this attack does nothing."
+            }
+        ],
+        "Weakness": "Weakness: Darkness",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Mékayu",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Onix",
+        "Id": 21,
+        "Rarity": "Promo pack",
+        "Type": "Fighting",
+        "HP": "110 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "FFF Land Crush 70",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Grass",
+        "Retreat": "Retreat: 4",
+        "Rule": "None",
+        "Illustrator": "Tomokazu Komiya",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Jigglypuff",
+        "Id": 22,
+        "Rarity": "Promo pack",
+        "Type": "Colorless",
+        "HP": "60 HP",
+        "Attacks": [
+            {
+                "symbol": "",
+                "info": "C Sing",
+                "effect": "Your opponent's Active Pokémon is now Asleep."
+            }
+        ],
+        "Weakness": "Weakness: Fighting",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Kurata So",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    },
+    {
+        "Name": "Bulbasaur",
+        "Id": 23,
+        "Rarity": "Wonder Pick",
+        "Type": "Grass",
+        "HP": "70 HP",
+        "Attacks": [
+            {
+                "symbol": "GC",
+                "info": "Vine Whip 40",
+                "effect": ""
+            }
+        ],
+        "Weakness": "Weakness: Fire",
+        "Retreat": "Retreat: 1",
+        "Rule": "None",
+        "Illustrator": "Kouki Saitou",
+        "Pack": "None",
+        "Extension": "Promo-A"
+    }
+]

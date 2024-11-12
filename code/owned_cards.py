@@ -2,8 +2,12 @@ import os
 from tkinter import Tk, Canvas, Frame, Label, Scrollbar, VERTICAL, Button
 from PIL import Image, ImageTk, ImageOps
 
-# Chemins et paramètres
-image_folder = "./Extensions/A1/cards"
+current_file_path = os.path.abspath(__file__)
+path = os.path.dirname(os.path.dirname(current_file_path))
+print(current_file_path)
+if current_file_path.find("_internal") != -1:
+    path = path + r"\_internal"
+image_folder = path + r"\Extensions\A1\cards"
 
 # Paramètres de dimensionnement
 image_width, image_height = 100, 140  # Taille des images après redimensionnement
