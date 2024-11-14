@@ -1,7 +1,7 @@
 import os
 from tkinter import Tk, Label, Button, Frame
 from PIL import Image, ImageTk
-from owned_cards import display
+from owned_cards import display_cards
 from reading.read import read_rows, write_rows
 from missing import get_new_card_probabilities
 from tools import *
@@ -9,75 +9,115 @@ from tools import *
 path = get_path()
 
 Nb_cartes_Totales = 287
-
 owned = read_rows(path + r'\user\owned.txt')
 image_folder = path + r"\Extensions\A1\Boosters"
 
-# Load and resize booster images
-def charger_image_booster(nom_image):
+# Liste pour stocker les références des images, afin de les maintenir en mémoire
+global_images_refs = []
+
+
+def load_booster_image(nom_image):
+    """Charge l'image d'un booster et la redimensionne"""
+    # Crée le chemin complet vers l'image
     path = os.path.join(image_folder, f"{nom_image}.png")
-    img = Image.open(path).resize((100, 150))
-    return ImageTk.PhotoImage(img)
-
-# Main loop that displays the interface
-def main_loop():
-    global owned  # Ensure owned is updated globally when modified by display()
     
-    # Create and set up the main interface window
+    if not os.path.exists(path):  # Vérifie que le fichier existe
+        return None
+    
+    try:
+        # Tente de charger l'image
+        img = Image.open(path).resize((100, 150))  # Redimensionne l'image
+        img_tk = ImageTk.PhotoImage(img)  # Convertit en format Tkinter
+        
+        # Ajoute l'image à la liste pour qu'elle soit maintenue en mémoire
+        global_images_refs.append(img_tk)
+        
+        return img_tk
+    except Exception as e:
+        print(f"Error loading image '{nom_image}': {e}")
+        return None
+
+
+def create_main_window():
     root = Tk()
-    root.title("Boosters galery")
+    root.title("Boosters Gallery")
+    root.resizable(False, False)  # Désactive le redimensionnement de la fenêtre
+    return root
 
-    probas_debloquer = get_new_card_probabilities(path, owned)
-    Nb_cartes_debloquees = len(owned)
 
-    # Frame for booster images and percentages
-    booster_frame = Frame(root)
-    booster_frame.pack(pady=10)
+def create_booster_frame(root, booster_data):
+    """Crée une frame avec les images de boosters"""
+    frame = Frame(root)
+    frame.pack(pady=10)
 
-    # Define booster names and probabilities
-    boosters = {
-        "Pikachu": probas_debloquer["Pikachu"],
-        "Mewtwo": probas_debloquer["Mewtwo"],
-        "Charizard": probas_debloquer["Charizard"]
-    }
+    # Réinitialisation de la liste des images à chaque fois que l'on crée un nouveau frame
+    for name, percentage in booster_data.items():
+        name = name.split("/")[-1]
+        img = load_booster_image(name)  # Charge l'image à partir du disque
+        if img is None:
+            continue
 
-    images_refs = []  # Store references to images to prevent garbage collection
-    for nom_booster, pourcentage in boosters.items():
-        img = charger_image_booster(nom_booster)
-        images_refs.append(img)
+        subframe = Frame(frame)
+        subframe.pack(side="left", padx=10)
 
-        # Create sub-frame for each booster image and percentage
-        booster_subframe = Frame(booster_frame)
-        booster_subframe.pack(side="left", padx=10)
+        try:
+            img_label = Label(subframe, image=img)
+            img_label.pack()
 
-        img_label = Label(booster_subframe, image=img)
-        img_label.pack()
+            Label(subframe, text=f"{percentage:.2f} %").pack()
+        except Exception as e:
+            print(f"Error displaying image '{name}': {e}")
 
-        pourcentage_label = Label(booster_subframe, text=f"{pourcentage:.2f} %")
-        pourcentage_label.pack()
+    return frame
 
-    # Display the number of unlocked cards
-    cartes_label = Label(root, text=f"Unlocked cards : {Nb_cartes_debloquees} / {Nb_cartes_Totales}")
-    cartes_label.pack(pady=10)
 
-    # Function for "Entrer des cartes" button
-    def entrer_cartes():
-        global owned
-        root.destroy()  # Close the main window
-        owned = display(owned)  # Call display and update owned list
-        main_loop()  # Restart the main interface after updating cards
+def display_card_info(root, owned, total_cards):
+    """Affiche le nombre de cartes débloquées"""
+    card_count = len(owned)
+    Label(root, text=f"Unlocked cards: {card_count} / {total_cards}").pack(pady=10)
 
-    # Button to enter cards
-    entrer_btn = Button(root, text="Enter cards", command=entrer_cartes)
-    entrer_btn.pack(pady=5)
 
-    # Quit button to exit the loop
-    quitter_btn = Button(root, text="Quit", command=root.destroy)
-    quitter_btn.pack(pady=5)
+def create_buttons(root, on_enter_cards, on_quit):
+    """Crée les boutons pour l'interface"""
+    Button(root, text="Enter cards", command=on_enter_cards).pack(pady=5)
+    Button(root, text="Quit", command=on_quit).pack(pady=5)
 
-    # Run the main interface loop
+
+def update_owned_cards(root):
+    """Met à jour les cartes possédées"""
+    global owned
+    root.destroy()  # Ferme la fenêtre principale
+    owned_cards = display_cards(owned)  # Passe le cache à display_cards
+    owned = owned_cards
+    main_loop()  # Passe à main_loop
+
+
+def main_loop():
+    """La boucle principale de l'application"""
+    global owned
+    
+    # Créer la fenêtre principale
+    root = create_main_window()
+    booster_data = get_new_card_probabilities(path, owned)
+
+    # Afficher les images des boosters et leurs pourcentages
+    _ = create_booster_frame(root, booster_data)
+    
+    # Afficher les informations sur les cartes
+    display_card_info(root, owned, Nb_cartes_Totales)
+
+    # Définir les actions des boutons
+    on_enter_cards = lambda: update_owned_cards(root)
+    on_quit = root.destroy
+    
+    # Créer et afficher les boutons
+    create_buttons(root, on_enter_cards, on_quit)
+    
     root.mainloop()
 
-# Start the main loop
+
+# Démarrer la boucle principale
 main_loop()
-write_rows(path  +r'\user\owned.txt', owned)
+
+# Sauvegarder les cartes possédées dans le fichier
+write_rows(path + r'\user\owned.txt', owned)

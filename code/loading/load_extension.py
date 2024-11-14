@@ -128,6 +128,7 @@ def get_amount_of_cards(extension):
     print(f"Error: Failed to retrieve the page. Status code: {response.status_code}")
     return 0
 
+
 ''' Extension: the extension's code.
     cards_dir: the directory for the extension's cards '''
 def load_all_cards(extension, cards_dir):

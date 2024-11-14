@@ -11,6 +11,10 @@ def read_json(filename):
         data = json.load(f)
     return data
 
+def write_json(dictionnary, file_path):
+    with open(file_path, 'w', encoding='utf-8') as f:
+        json.dump(dictionnary, f, indent=4)
+
 def read_rows(filename):
     data = []
     with open(filename, "r", encoding="utf-8") as file:

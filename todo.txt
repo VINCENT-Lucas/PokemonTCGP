@@ -1,0 +1,5 @@
+                                Organisation:
+
+On a un fichier load_extension.py qui permet de charger toutes les images des cartes de toutes les extensions disponibles ainsi que toutes
+les données de toutes les cartes.
+Pour chaque extension, on doit associer des probas d'obtention pour chaque carte.
