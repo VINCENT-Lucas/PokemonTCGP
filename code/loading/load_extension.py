@@ -7,42 +7,47 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import tools
 
 
-''' The goal is to look at every extension on the website and scrap the information about it '''
+def process_set_row(set_row, extensions_path):
+    """Traite une ligne du tableau des sets et télécharge les données associées."""
+    columns = set_row.find_all('td')
+    if not columns:
+        return
+
+    code = columns[0].find('span', class_='code annotation').text.strip()
+    print("Processing set:", code)
+
+    # Create the directories
+    set_directory = os.path.join(extensions_path, code)
+    tools.create_directory(os.path.join(set_directory, "cards"))
+
+    # Downloads the icon
+    icon = columns[0].find('img', class_='set')['src'] if columns[0].find('img', class_='set') else None
+    if icon:
+        tools.save_image(icon, os.path.join(set_directory, "icon.webp"))
+
+    # Load cards
+    cards_path = os.path.join(set_directory, "cards")
+    load_all_cards(code, cards_path)
+
+    # Load or save cards data
+    cards_data_path = os.path.join(set_directory, "cards_data.json")
+    if not os.path.exists(cards_data_path):
+        cards_data = load_all_cards_data(code, set_directory)
+        save_json(set_directory, cards_data)
+    else:
+        print(f"No new data loaded for {code}.")
+
 def load_extensions():
+    """Charge toutes les extensions depuis le site et enregistre leurs données localement."""
     url = "https://pocket.limitlesstcg.com/cards"
     extensions_path = os.path.join(tools.get_path(), "Extensions")
-    os.makedirs(extensions_path, exist_ok=True)
+    tools.create_directory(extensions_path)
 
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
+    soup = tools.fetch_url_content(url)
     sets = soup.select('table.sets-table tr')
 
     for set_row in sets:
-        columns = set_row.find_all('td')
-        
-        if columns:
-            code = columns[0].find('span', class_='code annotation').text.strip()
-            print("Processing set:", code)
-            icon = columns[0].find('img', class_='set')['src'] if columns[0].find('img', class_='set') else None
-            set_directory = os.path.join(extensions_path, code)
-            os.makedirs(os.path.join(set_directory, "cards"), exist_ok=True)
-
-            if icon:
-                icon_path = os.path.join(set_directory, "icon.webp")
-                with requests.get(icon, stream=True) as icon_response:
-                    icon_response.raise_for_status()
-                    with open(icon_path, 'wb') as icon_file:
-                        for chunk in icon_response.iter_content(1024):
-                            icon_file.write(chunk)
-            
-            cards_path = os.path.join(set_directory, "cards")
-            load_all_cards(code, cards_path)
-
-            if not os.path.exists(os.path.join(set_directory, "cards_data.json")):
-                cards_data = load_all_cards_data(code, set_directory)
-                save_json(set_directory, cards_data)
-            else:
-                print(f"No new data loaded for {code}.")
+        process_set_row(set_row, extensions_path)
 
             
 # ------------------ Properties extraction functions -------------------------
@@ -114,6 +119,7 @@ def get_illustrator(soup):
 # ------------------ ------------------------- -------------------------
 
 def get_amount_of_cards(extension):
+    ''' We're using the amount of balises there is, but if some balises are missing it creates a gap '''
     url = os.path.join("https://pocket.limitlesstcg.com/cards/", extension)
     response = requests.get(url)
     
@@ -135,7 +141,7 @@ def load_all_cards(extension, cards_dir):
     os.makedirs(cards_dir, exist_ok=True)
     total_cards = get_amount_of_cards(extension)
     
-    for i in range(1, total_cards + 1):
+    for i in range(1, total_cards + 3):
         card_id = "0" * (3 - len(str(i))) + str(i)
         output_filepath = os.path.join(cards_dir, f"{card_id}.webp")
 
@@ -151,7 +157,7 @@ def load_all_cards(extension, cards_dir):
             img.save(output_filepath)
             print(f"Image {i} downloaded.", end="\r")
         else:
-            print(f"Error downloading card {card_id}")
+            print(f"Error downloading card {card_id}: {response.status_code}")
     print(f"\nEnd of {extension} download")
 
 def load_data(extension, card_id):

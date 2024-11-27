@@ -1,4 +1,5 @@
-import os
+import os, requests
+from bs4 import BeautifulSoup
 
 
 ''' Returns the "POKEMON TCGP" folder's path, if it's in the exe file you ahve to add the \_internal folder '''
@@ -28,3 +29,22 @@ def list_json_files(path):
     except PermissionError:
         print(f"Error: Permission denied for accessing '{path}'.")
         return []
+    
+def create_directory(path):
+    """Crée un répertoire s'il n'existe pas déjà."""
+    os.makedirs(path, exist_ok=True)
+
+def fetch_url_content(url):
+    """Get and return the html content from an URL"""
+    response = requests.get(url)
+    response.raise_for_status()
+    return BeautifulSoup(response.text, 'html.parser')
+
+def save_image(url, path):
+    """Downloads and save an Image from an URL"""
+    if url:
+        with requests.get(url, stream=True) as response:
+            response.raise_for_status()
+            with open(path, 'wb') as file:
+                for chunk in response.iter_content(1024):
+                    file.write(chunk)

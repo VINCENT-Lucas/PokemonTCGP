@@ -7,6 +7,9 @@ def read_list(filename):
     return list_
 
 def read_json(filename):
+    if not os.path.exists(filename):
+        with open(filename, 'w', encoding='utf-8') as f:
+            json.dump({}, f)
     with open(filename, 'r', encoding='utf-8') as f:
         data = json.load(f)
     return data

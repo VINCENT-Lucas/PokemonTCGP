@@ -1,15 +1,10 @@
 import os
+from tools import *
 from tkinter import Tk, Canvas, Frame, Label, Scrollbar, VERTICAL, Button
 from PIL import Image, ImageTk, ImageOps
 
-# Paths and configurations
-def get_extensions_folder():
-    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    if "_internal" in base_path:
-        base_path = os.path.join(base_path, "_internal")
-    return os.path.join(base_path, "Extensions")
-
-extensions_path = get_extensions_folder()
+# Sauvegarde
+extensions_path = os.path.join(get_path(), "Extensions")
 image_width, image_height = 100, 140
 grid_columns = 5
 padding = 10
@@ -94,70 +89,101 @@ def create_interface():
 def on_mousewheel(event, canvas):
     canvas.yview_scroll(int(-3 * (event.delta / 120)), "units")
 
-def toggle_card(card_id, label, img_path, owned_cards, extension_name):
-    """Toggle the card's ownership and update the image."""
-    # Construire la clé unique basée sur l'extension et l'ID de la carte
-    if card_id in owned_cards:
-        owned_cards.remove(card_id)
-        img = load_image(img_path, grayscale=True)
-    else:
-        owned_cards.append(card_id)
-        img = load_image(img_path, grayscale=False)
-    
-    # Update the label with the new image
-    label.config(image=img)
-    label.image = img  # Keep reference to image to avoid garbage collection
+def toggle_card(card_id, label, img_path, owned_cards, extension_name, increment=True):
+    """Met à jour l'état d'une carte directement dans le dictionnaire owned_cards."""
+    # Initialiser le sous-dictionnaire pour l'extension s'il n'existe pas encore
+    if extension_name not in owned_cards:
+        owned_cards[extension_name] = {}
 
-    # Storing the image globally to avoid garbage collection
-    global_images.append(img)  # Store in the global_images list
+    # Accéder ou initialiser le compteur pour l'ID de la carte
+    current_count = owned_cards[extension_name].get(card_id, 0)
+
+    # Incrémenter ou décrémenter
+    if increment:
+        owned_cards[extension_name][card_id] = current_count + 1
+    else:
+        owned_cards[extension_name][card_id] = max(0, current_count - 1)
+
+    # Supprimer la carte si le compteur est à 0 (optionnel)
+    if owned_cards[extension_name][card_id] == 0:
+        del owned_cards[extension_name][card_id]
+        # Supprimer le sous-dictionnaire si vide
+        if not owned_cards[extension_name]:
+            del owned_cards[extension_name]
+
+    # Définir l'état visuel (grisé ou non)
+    grayscale = card_id not in owned_cards.get(extension_name, {})
+    img = load_image(img_path, grayscale=grayscale)
+    label.config(image=img)
+    label.image = img  # Conserver une référence pour éviter la collecte par GC
+
+    # Afficher le compteur sur l'image
+    count_text = f"x{owned_cards[extension_name].get(card_id, 0)}" if not grayscale else ""
+    label.config(text=count_text, compound="center", font=("Arial", 12, "bold"), fg="#ffffff")
+
+    # Stocker l'image globalement pour éviter qu'elle soit collectée
+    global_images.append(img)
 
 def create_image_grid(frame, image_files, image_folder, owned_cards, extension_name):
-    """Create a grid of images within the specified frame for the given images."""
+    """Créer une grille d'images pour les cartes d'une extension spécifique."""
     row, col = 0, 0
-    grid_frame = Frame(frame)  # Nouveau sous-Frame pour la grille de chaque extension
-    grid_frame.pack(anchor="w", padx=padding, pady=padding)  # Utilisation de pack pour positionner le sous-Frame
-    
+    grid_frame = Frame(frame)
+    grid_frame.pack(anchor="w", padx=padding, pady=padding)
+
+    # Initialiser le sous-dictionnaire de l'extension si nécessaire
+    if extension_name not in owned_cards:
+        owned_cards[extension_name] = {}
+
     for image_file in image_files:
-        card_id = int(os.path.splitext(image_file)[0])  # ID de la carte
+        card_id = str(int(os.path.splitext(image_file)[0]))  # ID de la carte
         img_path = os.path.join(image_folder, image_file)
 
-        # Charger l'image depuis le fichier
-        img = load_image(img_path, grayscale=(card_id not in owned_cards))
+        
+        # Déterminer si la carte est grisées ou non
+        grayscale = card_id not in owned_cards[extension_name] or owned_cards[extension_name][card_id] == 0
+        img = load_image(img_path, grayscale=grayscale)
 
-        label = Label(grid_frame, image=img)
-        label.grid(row=row, column=col, padx=padding // 2, pady=padding // 2)  # Utilisation de grid pour créer la grille
-        label.image = img  # Garder une référence explicite à l'image pour éviter la collecte par le GC
+        # Créer le label pour l'image
+        label = Label(grid_frame, image=img, text="", compound="center", font=("Arial", 12, "bold"), bg="#333333", fg="#ffffff")
+        label.grid(row=row, column=col, padx=padding // 2, pady=padding // 2)
+        label.image = img
+
+        # Afficher le compteur si la carte est possédée
+        count_text = f"x{owned_cards[extension_name].get(card_id, 0)}" if not grayscale else ""
+        label.config(text=count_text)
+
+        # Lier les événements de clic gauche et droit
         label.bind("<Button-1>", lambda event, cid=card_id, lbl=label, path=img_path: 
-                   toggle_card(cid, lbl, path, owned_cards, extension_name))
+                   toggle_card(cid, lbl, path, owned_cards, extension_name, increment=True))
+        label.bind("<Button-3>", lambda event, cid=card_id, lbl=label, path=img_path: 
+                   toggle_card(cid, lbl, path, owned_cards, extension_name, increment=False))
 
         col += 1
         if col >= grid_columns:
             col = 0
             row += 1
 
-        # Stocker l'image dans la liste globale pour éviter qu'elle soit collectée
         global_images.append(img)
 
 def display_cards(owned_cards):
-    """Affiche les cartes en utilisant un cache d'images passé en paramètre."""
-    # Load images from each extension and organize by extension
+    """Affiche les cartes et met à jour le dictionnaire owned_cards."""
     reset_cache()
     root, canvas, frame = create_interface()
 
     for extension_folder in os.listdir(extensions_path):
         extension_path = os.path.join(extensions_path, extension_folder)
         image_folder = get_image_folder(extension_folder)
-        
+
         if os.path.isdir(image_folder):
-            # Load icon and display extension title
+            # Charger l'icône et afficher le titre de l'extension
             icon_image = load_extension_icon(extension_path)
             global_images.append(icon_image)
 
             display_extension_title(frame, extension_folder, icon_image)
-            
-            # Load and display images for this extension
+
+            # Charger et afficher les images de l'extension
             image_files = sorted([f for f in os.listdir(image_folder) if f.endswith('.webp')])
-            create_image_grid(frame, image_files, image_folder, owned_cards, extension_folder)  # Pass extension name here
+            create_image_grid(frame, image_files, image_folder, owned_cards, extension_folder)
 
     frame.update_idletasks()
     canvas.config(scrollregion=canvas.bbox("all"))
@@ -167,10 +193,9 @@ def display_cards(owned_cards):
     finish_button.pack(side="bottom", pady=10)
 
     root.mainloop()
-    
+
     return owned_cards
 
 def finish(root):
-    # This function will be called to quit the interface
     root.quit()
     root.destroy()
