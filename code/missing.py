@@ -72,3 +72,77 @@ def get_new_card_probabilities(path, user_cards=None):
             stats[extension + "/" + booster_name] = new_card_probability
     
     return stats
+
+def get_boosters_probabilities():
+    extensions_path = os.path.join(get_path(), 'Extensions')
+    extensions = list_directories(extensions_path)
+
+    all_boosters_probabilities= {}
+    for extension in extensions:
+        extension_probas = {}
+        boosters_path = os.path.join(extensions_path, extension, 'Boosters')
+        boosters = list_json_files(boosters_path)
+
+        for booster_name in boosters:
+            booster_name = booster_name[:-5]
+            booster_probabilities = load_booster_probabilities(get_path(), booster_name)
+            extension_probas[booster_name] = booster_probabilities
+        all_boosters_probabilities[extension] = extension_probas
+    return all_boosters_probabilities
+
+def card_probability_by_name(name, ignore_ex=True):
+    all_cards_data = get_all_cards_data()
+    possibilities = {}
+
+    all_boosters_probabilities = get_boosters_probabilities()
+    for extension in all_boosters_probabilities:
+        for pack in all_boosters_probabilities[extension]:
+            for card_id in all_boosters_probabilities[extension][pack]:
+                card_name = next((item for item in all_cards_data[extension] if int(item["Id"]) == int(card_id)), None)["Name"]
+
+                if ignore_ex:
+                    card_name = remove_ex(card_name)
+                if card_name == name:
+                    if f"{extension}/{pack}" in possibilities:
+                        possibilities[f"{extension}/{pack}"] += all_boosters_probabilities[extension][pack][card_id]
+                    else:
+                        possibilities[f"{extension}/{pack}"] = all_boosters_probabilities[extension][pack][card_id]
+    return possibilities
+
+def card_probability_by_id(extension, id):
+    all_cards_data = get_all_cards_data()
+    possibilities = {}
+    all_boosters_probabilities = get_boosters_probabilities()
+    for pack in all_boosters_probabilities[extension]:
+        for card_id in all_boosters_probabilities[extension][pack]:
+            if int(card_id) == int(id):
+                if f"{extension}/{pack}" in possibilities:
+                    possibilities[f"{extension}/{pack}"] += all_boosters_probabilities[extension][pack][card_id]
+                else:
+                    possibilities[f"{extension}/{pack}"] = all_boosters_probabilities[extension][pack][card_id]
+    return possibilities
+
+def determine_pack_to_open_by_names(names_list, ignore_ex=True):
+    result = {}
+    for name in names_list:
+        probas = card_probability_by_name(name, ignore_ex)
+        for key in probas:
+            if key in result:
+                result[key] += probas[key]
+            else:
+                result[key] = probas[key]
+    return result
+
+def determine_pack_to_open_by_id(cards_list):
+    result = {}
+    for card in cards_list:
+        id = card["Id"]
+        extension = card["Extension"]
+        probas = card_probability_by_id(extension, id)
+        for key in probas:
+            if key in result:
+                result[key] += probas[key]
+            else:
+                result[key] = probas[key]
+    return result
+

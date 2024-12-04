@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 def get_path():
     current_file_path = os.path.abspath(__file__)
     path = os.path.dirname(os.path.dirname(current_file_path))
-    print(current_file_path)
     if current_file_path.find("_internal") != -1:
         path = path + r"\_internal"
     return path
@@ -48,3 +47,14 @@ def save_image(url, path):
             with open(path, 'wb') as file:
                 for chunk in response.iter_content(1024):
                     file.write(chunk)
+
+def get_extension_code(extension_name):
+    translate = {"Promo-A": "P-a", "Genetic Apex  (A1)": "A1"}
+    return translate[extension_name]
+
+def remove_ex(name):
+    ''' Removes the " ex" in the end of a string '''
+    if len(name)>3:
+        if name[-3:] == " ex":
+            return name[:-3]
+    return name

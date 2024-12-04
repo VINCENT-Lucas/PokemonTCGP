@@ -182,7 +182,6 @@ def load_data(extension, card_id):
         "Pack": get_card_print_info(soup)[2],
         "Extension": extension
     }
-
     return data
 
 # Fonction pour charger toutes les cartes et les sauvegarder dans un fichier JSON

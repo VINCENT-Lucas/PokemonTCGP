@@ -5,10 +5,13 @@ from .enter_cards import display_cards
 from reading.read import *
 from missing import *
 from tools import *
+import tkinter as tk
+from windows.wishlist import *
+
 
 path = get_path()
 
-image_folder = path + r"\Extensions\A1\Boosters"
+image_folder = get_path() + r"\Extensions\A1\Boosters"
 
 # Liste pour stocker les références des images, afin de les maintenir en mémoire
 global_images_refs = []
@@ -109,7 +112,8 @@ def main_loop(user_cards=None):
     if user_cards == {}:
         user_cards = init_cards_owned()
     
-    root = create_main_window()
+    root = create_main_window()  # Crée la fenêtre principale
+
     booster_data = get_new_card_probabilities(path, user_cards)
 
     create_booster_frame(root, booster_data)
@@ -117,6 +121,35 @@ def main_loop(user_cards=None):
     display_card_info(root, user_cards, get_all_cards_data())
     user_cards = create_buttons(root, user_cards)
 
+    # Ajouter un bouton 'wishlist' pour afficher la liste des souhaits
+    wishlist_button = tk.Button(root, text="Wishlist", command=lambda: show_wishlist(root))
+    wishlist_button.pack(side=tk.BOTTOM, pady=20)  # Placer le bouton en bas de la fenêtre principale
+
     root.mainloop()
 
     write_json(user_cards, os.path.join(path, 'user', 'cards_owned.json'))
+
+
+def show_wishlist(root):
+    """Fonction pour afficher la fenêtre de la wishlist."""
+    # Masquer la fenêtre principale
+    root.withdraw()
+
+    # Créer la fenêtre wishlist
+    wishlist_window = tk.Toplevel(root)
+    wishlist_window.title("Wishlist")
+    
+    # Lancer la classe PokemonWishlistApp (vous devez la définir si elle ne l'est pas déjà)
+    app = PokemonWishlistApp(wishlist_window)  # Passe la fenêtre Toplevel comme parent
+
+    # Lors de la fermeture de la fenêtre wishlist, on réaffiche la fenêtre principale
+    wishlist_window.protocol("WM_DELETE_WINDOW", lambda: on_wishlist_close(root, wishlist_window))
+
+    # Vous pouvez ajouter plus de fonctionnalités ou personnaliser l'apparence de la wishlist ici.
+    wishlist_window.mainloop()
+
+
+def on_wishlist_close(root, wishlist_window):
+    """Fonction qui se déclenche lors de la fermeture de la fenêtre de wishlist"""
+    wishlist_window.destroy()  # Ferme la fenêtre de wishlist
+    root.deiconify()  # Réaffiche la fenêtre principale

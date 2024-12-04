@@ -15,6 +15,9 @@ def read_json(filename):
     return data
 
 def write_json(dictionnary, file_path):
+    for key in dictionnary:
+        if dictionnary[key] == 0:
+            del dictionnary[key]
     with open(file_path, 'w', encoding='utf-8') as f:
         json.dump(dictionnary, f, indent=4)
 
