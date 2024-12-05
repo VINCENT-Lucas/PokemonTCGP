@@ -16,5 +16,26 @@ There are all the cards that are currently in game, in colors if owned, in grey 
 
 By pressing a card, you can add it or remove it from your collection.
 
+## Wishlists section
+
+The goal of the wishlists is to create some sets of cards you need, for collection or combat purposes for instance.
+
+![Wishlist](assets/wishlist_before_adding.png)
+
+You can add manually some cards by typing their name and selecting it.
+You can remove a card from the wishlist by clicking on it.
+
+![Wishlist](assets/wishlist_after_adding.png)
+
+You can save your wishlist at anytime, or import one of the preset wishlists.
+They load all the cards you need to complete some missions (I've implemented the Mew mission and every rarity missions)
+
+![Wishlist](assets/wishlist_mission_selection.png)
+
+Once you have loaded a wishlist, you can generate the probabilities of getting its cards in every booster. 
+(CAUTION: the shown probabilities are not the exact probabilities of getting a new card, I need to normalise the data, it's going to be fixed for the next release !)
+
+![Wishlist](assets/wishlist_recommandations.png)
+
 Used languages: Python
 Librairies: os, Tkinter, PIL, json, pandas, io, bs4, re, sys

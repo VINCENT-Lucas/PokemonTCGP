@@ -85,6 +85,8 @@ def create_buttons(root, user_cards):
 
     Button(root, text="Enter cards", command=on_enter_cards).pack(pady=5)
     Button(root, text="Quit", command=on_quit).pack(pady=5)
+    # Ajouter un bouton 'wishlist' pour afficher la liste des souhaits
+    Button(root, text="Wishlist", command=lambda: show_wishlist(root)).pack(pady=5)
     return user_cards
 
 
@@ -104,6 +106,8 @@ def init_cards_owned():
         json_list[dir] = {}
     return json_list
 
+def save_data(user_cards):
+    write_json(user_cards, os.path.join(get_path(), 'user', 'cards_owned.json'))
 
 def main_loop(user_cards=None):
     """The main loop for the app"""
@@ -111,6 +115,8 @@ def main_loop(user_cards=None):
         user_cards = read_json(path + r'\user\cards_owned.json')
     if user_cards == {}:
         user_cards = init_cards_owned()
+
+    save_data(user_cards)
     
     root = create_main_window()  # Crée la fenêtre principale
 
@@ -121,13 +127,8 @@ def main_loop(user_cards=None):
     display_card_info(root, user_cards, get_all_cards_data())
     user_cards = create_buttons(root, user_cards)
 
-    # Ajouter un bouton 'wishlist' pour afficher la liste des souhaits
-    wishlist_button = tk.Button(root, text="Wishlist", command=lambda: show_wishlist(root))
-    wishlist_button.pack(side=tk.BOTTOM, pady=20)  # Placer le bouton en bas de la fenêtre principale
-
     root.mainloop()
-
-    write_json(user_cards, os.path.join(path, 'user', 'cards_owned.json'))
+    save_data(user_cards)
 
 
 def show_wishlist(root):

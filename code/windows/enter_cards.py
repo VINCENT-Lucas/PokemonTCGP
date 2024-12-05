@@ -229,6 +229,6 @@ def display_cards(owned_cards):
 
     return owned_cards
 
-def finish(root):
+def finish(root):    
     root.quit()
     root.destroy()

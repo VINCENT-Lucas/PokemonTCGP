@@ -1,0 +1,13 @@
+pyinstaller --noconfirm --onedir --windowed 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\missing.py;." 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\tools.py;." 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\user.py;." 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\assets;assets/" 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code;code/" 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\Extensions;Extensions/" 
+--add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\user;user/"  
+"C:\Users\loual\Desktop\projets\Pokemon TCGP\code\main.py"
+
+
+--- Avec logo  ---
+pyinstaller --noconfirm --onedir --windowed --icon "C:\Users\loual\Desktop\projets\Pokemon TCGP\assets\PokeBall_37565.ico" --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\missing.py;." --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\test.py;." --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\tools.py;." --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\user.py;." --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\assets;assets/" --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\code;code/" --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\Extensions;Extensions/" --add-data "C:\Users\loual\Desktop\projets\Pokemon TCGP\user;user/"  "C:\Users\loual\Desktop\projets\Pokemon TCGP\code\main.py"

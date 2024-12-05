@@ -1,0 +1,68 @@
+[
+    {
+        "Name": "Omastar - A1#82",
+        "Extension": "A1",
+        "Id": "082",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\082.webp"
+    },
+    {
+        "Name": "Gyarados - A1#78",
+        "Extension": "A1",
+        "Id": "078",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\078.webp"
+    },
+    {
+        "Name": "Gyarados - A1#233",
+        "Extension": "A1",
+        "Id": "233",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\233.webp"
+    },
+    {
+        "Name": "Seaking - A1#73",
+        "Extension": "A1",
+        "Id": "073",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\073.webp"
+    },
+    {
+        "Name": "Dugtrio - A1#140",
+        "Extension": "A1",
+        "Id": "140",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\140.webp"
+    },
+    {
+        "Name": "Hypno - A1#125",
+        "Extension": "A1",
+        "Id": "125",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\125.webp"
+    },
+    {
+        "Name": "Snorlax - A1#211",
+        "Extension": "A1",
+        "Id": "211",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\211.webp"
+    },
+    {
+        "Name": "Snorlax - A1#250",
+        "Extension": "A1",
+        "Id": "250",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\250.webp"
+    },
+    {
+        "Name": "Vaporeon - A1#80",
+        "Extension": "A1",
+        "Id": "080",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\080.webp"
+    },
+    {
+        "Name": "Golem - A1#149",
+        "Extension": "A1",
+        "Id": "149",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\149.webp"
+    },
+    {
+        "Name": "Clefable - A1#114",
+        "Extension": "A1",
+        "Id": "114",
+        "Image_path": "c:\\Users\\loual\\Desktop\\projets\\Pokemon TCGP\\Extensions\\A1\\cards\\114.webp"
+    }
+]
